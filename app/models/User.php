@@ -14,21 +14,21 @@ class User extends Database {
     }
 
     public function login($data) {
-        $sql = "SELECT id, first_name, password FROM users WHERE username = :username";
+        $sql = "SELECT id, name, password FROM users WHERE email = :email";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
-            'username' => $data['username'],
+            'email' => $data['email'],
         ]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function register($data) {
-        $sql = "INSERT INTO users (first_name, last_name, username, password) VALUES (:first_name, :last_name, :username, :password)";
+        $sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (:first_name, :last_name, :email, :password)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'username' => $data['username'],
+            'email' => $data['email'],
             'password' => password_hash($data['password'], PASSWORD_BCRYPT)
         ]);
 
