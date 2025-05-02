@@ -87,4 +87,14 @@ class Product extends Database
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function getByCategory($category_name)
+    {
+        $sql = "SELECT products.id, products.name, products.price, products.description, products.image_path FROM products JOIN product_categories ON products.category_id = product_categories.id WHERE product_categories.name = :category_name";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'category_name' => $category_name
+        ]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 }

@@ -40,7 +40,7 @@ session_start();
                     </a>
                 <ul class="dropdown-menu">
                     <?php foreach($categories->getAll() as $category): ?>
-                        <li><a class="dropdown-item" href="categories.php?name=<?php echo $category['name'];  ?>"><?php echo $category['name']; ?></a></li>
+                        <li><a class="dropdown-item" href="category.php?name=<?php echo $category['name'];  ?>"><?php echo $category['name']; ?></a></li>
                     <?php endforeach; ?>
                 </ul>
                 </li>

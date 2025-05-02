@@ -5,25 +5,21 @@
 use Aries\MiniFrameworkStore\Models\Product;
 
 $products = new Product();
+$category = $_GET['name'];
 
 $amounLocale = 'en_PH';
 $pesoFormatter = new NumberFormatter($amounLocale, NumberFormatter::CURRENCY);
 
 ?>
-<div class="container">
-    
-</div>
-
 <div class="container my-5">
     <div class="row align-items-center">
         <div class="col-md-12">
-            <h1 class="text-center">Welcome to the Online Store</h1>
-            <p class="text-center">Your one-stop shop for all your needs!</p>
+            <h1 class="text-center"><?php echo $category ?></h1>
         </div>
     </div>
     <div class="row">
         <h2>Products</h2>
-        <?php foreach($products->getAll() as $product): ?>
+        <?php foreach($products->getByCategory($category) as $product): ?>
         <div class="col-md-4">
             <div class="card">
                 <img src="<?php echo $product['image_path'] ?>" class="card-img-top" alt="...">
