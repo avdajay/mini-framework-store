@@ -14,3 +14,11 @@ function countCart() {
     }
     return 0;
 }
+
+function isLoggedIn() {
+    if(isset($_SESSION['user'])) {
+        return true;
+    }
+
+    return false;
+}

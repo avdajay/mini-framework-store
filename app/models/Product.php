@@ -68,6 +68,7 @@ class Product extends Database
         ]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+    
     public function getByName($name)
     {
         $sql = "SELECT * FROM products WHERE name = :name";

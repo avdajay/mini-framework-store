@@ -32,7 +32,8 @@ $pesoFormatter = new NumberFormatter($amounLocale, NumberFormatter::CURRENCY);
                     <h6 class="card-subtitle mb-2 text-body-secondary"><?php echo $formattedAmount = $pesoFormatter->formatCurrency($product['price'], 'PHP') ?></h6>
                     <p class="card-text"><?php echo $product['description'] ?></p>
                     <a href="product.php?id=<?php echo $product['id'] ?>" class="btn btn-primary">View Product</a>
-                    <a href="cart.php?product_id=<?php echo $product['id'] ?>" class="btn btn-success">Add to Cart</a>
+                    <a href="#" class="btn btn-success add-to-cart" data-productid="<?php echo $product['id'] ?>" data-quantity=
+                    "1">Add to Cart</a>
                 </div>
             </div>
         </div>

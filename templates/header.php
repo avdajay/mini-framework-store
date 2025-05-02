@@ -62,10 +62,13 @@ session_start();
                         Hello, <?php echo isset($_SESSION['user']) ? $_SESSION['user']['name'] : 'Guest'; ?>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="login.php">Login</a></li>
-                        <li><a class="dropdown-item" href="register.php">Register</a></li>
+                    <?php if (isLoggedIn()): ?>
                         <li><a class="dropdown-item" href="my-account.php">My Account</a></li>
                         <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                    <?php else: ?>
+                        <li><a class="dropdown-item" href="login.php">Login</a></li>
+                        <li><a class="dropdown-item" href="register.php">Register</a></li>
+                    <?php endif; ?>
                     </ul>
                 </li>
             </ul>
