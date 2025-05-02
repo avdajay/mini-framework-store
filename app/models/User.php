@@ -23,13 +23,14 @@ class User extends Database {
     }
 
     public function register($data) {
-        $sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (:first_name, :last_name, :email, :password)";
+        $sql = "INSERT INTO users (name, email, password, created_at, updated_at) VALUES (:name, :email, :password, :created_at, :updated_at)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
+            'name' => $data['name'],
             'email' => $data['email'],
-            'password' => password_hash($data['password'], PASSWORD_BCRYPT)
+            'password' => password_hash($data['password'], PASSWORD_BCRYPT),
+            'created_at' => $data['created_at'],
+            'updated_at' => $data['updated_at']
         ]);
 
         return $this->db->lastInsertId();

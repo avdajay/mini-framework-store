@@ -1,30 +1,90 @@
 <?php
 
+namespace Aries\MiniFrameworkStore\Models;
+
+use Aries\MiniFrameworkStore\Includes\Database;
+
 class Product extends Database
 {
-    private $id;
-    private $name;
-    private $description;
-    private $price;
-    private $image_url;
+    private $db;
 
-    public function __construct($id, $name, $description, $price, $image_url)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
-        $this->price = $price;
-        $this->image_url = $image_url;
+        parent::__construct(); // Call the parent constructor to establish the connection
+        $this->db = $this->getConnection(); // Get the connection instance
     }
 
-    public function getId()
+    public function insert($data)
     {
-        return $this->id;
+        $sql = "INSERT INTO products (name, description, price, slug, image_path, category_id, created_at, updated_at) VALUES (:name, :description, :price, :slug, :image_path, :category_id, :created_at, :updated_at)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'slug' => $data['slug'],
+            'image_path' => $data['image_path'],
+            'category_id' => $data['category_id'],
+            'created_at' => $data['created_at'],
+            'updated_at' => $data['updated_at']
+        ]);
+        return $this->db->lastInsertId();
     }
-
-    public function getName()
+    public function update()
     {
-        return $this->name;
+        $sql = "UPDATE products SET name = :name, description = :description, price = :price, image_url = :image_url WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'price' => $this->price,
+            'image_url' => $this->image_url
+        ]);
+        return "Record UPDATED successfully";
+    }
+    public function delete()
+    {
+        $sql = "DELETE FROM products WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'id' => $this->id
+        ]);
+        return "Record DELETED successfully";
+    }
+    public function getAll()
+    {
+        $sql = "SELECT * FROM products";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function getById($id)
+    {
+        $sql = "SELECT * FROM products WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'id' => $id
+        ]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+    public function getByName($name)
+    {
+        $sql = "SELECT * FROM products WHERE name = :name";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'name' => $name
+        ]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+    public function getByPrice($price)
+    {
+        $sql = "SELECT * FROM products WHERE price = :price";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'price' => $price
+        ]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
 }

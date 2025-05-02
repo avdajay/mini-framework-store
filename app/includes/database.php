@@ -7,9 +7,9 @@ use PDOException;
 
 class Database {
     private $host = "localhost";
-    private $db_name = "lab2";
+    private $db_name = "mini_framework_store";
     private $username = "root";
-    private $password = "";
+    private $password = "P@ssword123";
     protected $conn;
 
     public function __construct() {
