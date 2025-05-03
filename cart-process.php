@@ -17,7 +17,7 @@
     $productDetails = $product->getById($_POST['productId']);
 
     // Ensure the cart only includes product ID and quantity
-        $_SESSION['cart'][$product_id] = [
+    $_SESSION['cart'][$product_id] = [
         'product_id' => $product_id,
         'quantity' => $quantity,
         'name' => $productDetails['name'],
