@@ -14,7 +14,7 @@ class User extends Database {
     }
 
     public function login($data) {
-        $sql = "SELECT id, name, password FROM users WHERE email = :email";
+        $sql = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             'email' => $data['email'],
@@ -23,7 +23,7 @@ class User extends Database {
     }
 
     public function register($data) {
-        $sql = "INSERT INTO users (name, email, password, created_at, updated_at) VALUES (:name, :email, :password, :created_at, :updated_at)";
+        $sql = "INSERT INTO users (name, email, password, address, phone, birthdate, created_at, updated_at) VALUES (:name, :email, :password, :created_at, :updated_at)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             'name' => $data['name'],
@@ -37,15 +37,16 @@ class User extends Database {
     }
 
     public function update($data) {
-        $sql = "UPDATE users SET name = :name, email = :email, password = :password WHERE id = :id";
+        $sql = "UPDATE users SET name = :name, email = :email, address = :address, phone = :phone, birthdate = :birthdate WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             'id' => $data['id'],
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => $data['password']
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'birthdate' => $data['birthdate']
         ]);
-        return "Record UPDATED successfully";
     }
 
     public function delete($id) {
@@ -54,6 +55,5 @@ class User extends Database {
         $stmt->execute([
             'id' => $id
         ]);
-        return "Record DELETED successfully";
     }   
 }

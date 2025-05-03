@@ -13,7 +13,7 @@ if(isset($_POST['submit'])) {
 
     if($user_info && password_verify($_POST['password'], $user_info['password'])) {
         $_SESSION['user'] = $user_info;
-        header('Location: dashboard.php');
+        header('Location: my-account.php');
         exit;
     } else {
         $message = 'Invalid username or password';
@@ -21,7 +21,7 @@ if(isset($_POST['submit'])) {
 }
 
 if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
-    header('Location: dashboard.php');
+    header('Location: my-account.php');
     exit;
 }
 
